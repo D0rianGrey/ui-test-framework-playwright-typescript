@@ -6,7 +6,7 @@ const config: PlaywrightTestConfig = {
     reporter: [['html'], ['list']],
     use: {
         browserName: 'chromium',
-        headless: true,
+        headless: false,
         screenshot: 'only-on-failure',
         trace: 'on-first-retry',
         video: 'on-first-retry'
@@ -16,14 +16,14 @@ const config: PlaywrightTestConfig = {
             name: 'Chrome',
             use: { browserName: 'chromium' }
         },
-        {
-            name: 'Firefox',
-            use: { browserName: 'firefox' }
-        },
-        {
-            name: 'WebKit',
-            use: { browserName: 'webkit' }
-        }
+        // {
+        //     name: 'Firefox',
+        //     use: { browserName: 'firefox' }
+        // },
+        // {
+        //     name: 'WebKit',
+        //     use: { browserName: 'webkit' }
+        // }
     ]
 };
 

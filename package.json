@@ -1,0 +1,23 @@
+{
+  "name": "ui-test-framework-playwright-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/D0rianGrey/ui-test-framework-playwright-typescript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/D0rianGrey/ui-test-framework-playwright-typescript/issues"
+  },
+  "homepage": "https://github.com/D0rianGrey/ui-test-framework-playwright-typescript#readme"
+}
