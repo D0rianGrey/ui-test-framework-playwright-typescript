@@ -1,3 +1,8 @@
-node_modules
-test-results
-playwright-report
+node_modules/
+allure-results/
+allure-report/
+screenshots/
+dist/
+.DS_Store
+playwright-report/
+test-results/

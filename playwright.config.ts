@@ -1,9 +1,14 @@
 import { PlaywrightTestConfig } from '@playwright/test';
+import path from 'path';
 
 const config: PlaywrightTestConfig = {
     testDir: './src/tests',
     timeout: 30000,
-    reporter: [['html'], ['list']],
+    reporter: [
+        ['html'],
+        ['list'],
+        ['allure-playwright']
+    ],
     use: {
         browserName: 'chromium',
         headless: false,
@@ -15,15 +20,7 @@ const config: PlaywrightTestConfig = {
         {
             name: 'Chrome',
             use: { browserName: 'chromium' }
-        },
-        // {
-        //     name: 'Firefox',
-        //     use: { browserName: 'firefox' }
-        // },
-        // {
-        //     name: 'WebKit',
-        //     use: { browserName: 'webkit' }
-        // }
+        }
     ]
 };
 

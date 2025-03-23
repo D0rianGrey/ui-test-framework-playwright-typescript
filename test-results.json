@@ -1,0 +1,729 @@
+{
+  "config": {
+    "configFile": "/Users/yevheniivakerin/Downloads/Coding/Pets/basic/ui-test-framework-playwright-typescript/playwright.config.ts",
+    "rootDir": "/Users/yevheniivakerin/Downloads/Coding/Pets/basic/ui-test-framework-playwright-typescript/src/tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 3
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        null
+      ],
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/Users/yevheniivakerin/Downloads/Coding/Pets/basic/ui-test-framework-playwright-typescript/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 3
+        },
+        "id": "Chrome",
+        "name": "Chrome",
+        "testDir": "/Users/yevheniivakerin/Downloads/Coding/Pets/basic/ui-test-framework-playwright-typescript/src/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.51.1",
+    "workers": 5,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "allure-example.spec.ts",
+      "file": "allure-example.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Демонстрация интеграции с Allure",
+          "file": "allure-example.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Подробный отчет о тесте авторизации",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "feature",
+                      "description": "Авторизация"
+                    },
+                    {
+                      "type": "severity",
+                      "description": "critical"
+                    },
+                    {
+                      "type": "tag",
+                      "description": "smoke"
+                    },
+                    {
+                      "type": "description",
+                      "description": "Тест проверяет процесс авторизации стандартного пользователя"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "Chrome",
+                  "projectName": "Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2273,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[2025-03-23T09:04:15.434Z] [INFO] Переход на страницу: https://www.saucedemo.com/ \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:15.582Z] [INFO] Заполнение поля #user-name значением: standard_user \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:15.635Z] [INFO] Заполнение поля #password значением: secret_sauce \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:15.711Z] [INFO] Клик по элементу: #login-button \n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Авторизация пользователя",
+                          "duration": 395,
+                          "steps": [
+                            {
+                              "title": "Переход на страницу: https://www.saucedemo.com/",
+                              "duration": 144
+                            },
+                            {
+                              "title": "Заполнение поля #user-name",
+                              "duration": 53,
+                              "steps": [
+                                {
+                                  "title": "Ожидание элемента: #user-name",
+                                  "duration": 38
+                                }
+                              ]
+                            },
+                            {
+                              "title": "Заполнение поля #password",
+                              "duration": 75,
+                              "steps": [
+                                {
+                                  "title": "Ожидание элемента: #password",
+                                  "duration": 14
+                                }
+                              ]
+                            },
+                            {
+                              "title": "Клик по элементу: #login-button",
+                              "duration": 118,
+                              "steps": [
+                                {
+                                  "title": "Ожидание элемента: #login-button",
+                                  "duration": 6
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "title": "Получение списка продуктов",
+                          "duration": 62
+                        }
+                      ],
+                      "startTime": "2025-03-23T09:04:12.753Z",
+                      "attachments": [
+                        {
+                          "name": "HTML до авторизации",
+                          "contentType": "text/html",
+                          "body": "PCFET0NUWVBFIGh0bWw+PGh0bWwgbGFuZz0iZW4iPjxoZWFkPjxtZXRhIGNoYXJzZXQ9InV0Zi04Ij48bGluayByZWw9Imljb24iIGhyZWY9Ii9mYXZpY29uLmljbyI+PG1ldGEgbmFtZT0icm9ib3RzIiBjb250ZW50PSJub2luZGV4Ij48bWV0YSBuYW1lPSJ2aWV3cG9ydCIgY29udGVudD0id2lkdGg9ZGV2aWNlLXdpZHRoLGluaXRpYWwtc2NhbGU9MSI+PG1ldGEgbmFtZT0idGhlbWUtY29sb3IiIGNvbnRlbnQ9IiNmZmZmZmYiPjxtZXRhIG5hbWU9ImRlc2NyaXB0aW9uIiBjb250ZW50PSJTYXVjZSBMYWJzIFN3YWcgTGFicyBhcHAiPjxsaW5rIHJlbD0iYXBwbGUtdG91Y2gtaWNvbiIgaHJlZj0iL2ljb24vaWNvbi0xOTJ4MTkyLnBuZyI+PGxpbmsgcmVsPSJtYW5pZmVzdCIgaHJlZj0iL21hbmlmZXN0Lmpzb24iPjxzY3JpcHQgdHlwZT0idGV4dC9qYXZhc2NyaXB0Ij4hZnVuY3Rpb24obil7aWYoIi8iPT09bi5zZWFyY2hbMV0pe3ZhciBhPW4uc2VhcmNoLnNsaWNlKDEpLnNwbGl0KCImIikubWFwKChmdW5jdGlvbihuKXtyZXR1cm4gbi5yZXBsYWNlKC9+YW5kfi9nLCImIil9KSkuam9pbigiPyIpO3dpbmRvdy5oaXN0b3J5LnJlcGxhY2VTdGF0ZShudWxsLG51bGwsbi5wYXRobmFtZS5zbGljZSgwLC0xKSthK24uaGFzaCl9fSh3aW5kb3cubG9jYXRpb24pPC9zY3JpcHQ+PGxpbmsgcmVsPSJzdHlsZXNoZWV0IiBocmVmPSJodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2NzczI/ZmFtaWx5PURNK01vbm86d2dodEA0MDA7NTAwJmFtcDtmYW1pbHk9RE0rU2Fuczp3Z2h0QDQwMDs1MDAiPjx0aXRsZT5Td2FnIExhYnM8L3RpdGxlPjxsaW5rIGhyZWY9Ii9zdGF0aWMvY3NzL21haW4uZjZjNjRiZTUuY2h1bmsuY3NzIiByZWw9InN0eWxlc2hlZXQiPjwvaGVhZD48Ym9keT48bm9zY3JpcHQ+WW91IG5lZWQgdG8gZW5hYmxlIEphdmFTY3JpcHQgdG8gcnVuIHRoaXMgYXBwLjwvbm9zY3JpcHQ+PGRpdiBpZD0icm9vdCI+PGRpdiBjbGFzcz0ibG9naW5fY29udGFpbmVyIj48ZGl2IGNsYXNzPSJsb2dpbl9sb2dvIj5Td2FnIExhYnM8L2Rpdj48ZGl2IGNsYXNzPSJsb2dpbl93cmFwcGVyIiBkYXRhLXRlc3Q9ImxvZ2luLWNvbnRhaW5lciI+PGRpdiBjbGFzcz0ibG9naW5fd3JhcHBlci1pbm5lciI+PGRpdiBpZD0ibG9naW5fYnV0dG9uX2NvbnRhaW5lciIgY2xhc3M9ImZvcm1fY29sdW1uIj48ZGl2IGNsYXNzPSJsb2dpbi1ib3giPjxmb3JtPjxkaXYgY2xhc3M9ImZvcm1fZ3JvdXAiPjxpbnB1dCBjbGFzcz0iaW5wdXRfZXJyb3IgZm9ybV9pbnB1dCIgcGxhY2Vob2xkZXI9IlVzZXJuYW1lIiB0eXBlPSJ0ZXh0IiBkYXRhLXRlc3Q9InVzZXJuYW1lIiBpZD0idXNlci1uYW1lIiBuYW1lPSJ1c2VyLW5hbWUiIGF1dG9jb3JyZWN0PSJvZmYiIGF1dG9jYXBpdGFsaXplPSJub25lIiB2YWx1ZT0iIj48L2Rpdj48ZGl2IGNsYXNzPSJmb3JtX2dyb3VwIj48aW5wdXQgY2xhc3M9ImlucHV0X2Vycm9yIGZvcm1faW5wdXQiIHBsYWNlaG9sZGVyPSJQYXNzd29yZCIgdHlwZT0icGFzc3dvcmQiIGRhdGEtdGVzdD0icGFzc3dvcmQiIGlkPSJwYXNzd29yZCIgbmFtZT0icGFzc3dvcmQiIGF1dG9jb3JyZWN0PSJvZmYiIGF1dG9jYXBpdGFsaXplPSJub25lIiB2YWx1ZT0iIj48L2Rpdj48ZGl2IGNsYXNzPSJlcnJvci1tZXNzYWdlLWNvbnRhaW5lciI+PC9kaXY+PGlucHV0IHR5cGU9InN1Ym1pdCIgY2xhc3M9InN1Ym1pdC1idXR0b24gYnRuX2FjdGlvbiIgZGF0YS10ZXN0PSJsb2dpbi1idXR0b24iIGlkPSJsb2dpbi1idXR0b24iIG5hbWU9ImxvZ2luLWJ1dHRvbiIgdmFsdWU9IkxvZ2luIj48L2Zvcm0+PC9kaXY+PC9kaXY+PC9kaXY+PGRpdiBjbGFzcz0ibG9naW5fY3JlZGVudGlhbHNfd3JhcCIgZGF0YS10ZXN0PSJsb2dpbi1jcmVkZW50aWFscy1jb250YWluZXIiPjxkaXYgY2xhc3M9ImxvZ2luX2NyZWRlbnRpYWxzX3dyYXAtaW5uZXIiPjxkaXYgaWQ9ImxvZ2luX2NyZWRlbnRpYWxzIiBjbGFzcz0ibG9naW5fY3JlZGVudGlhbHMiIGRhdGEtdGVzdD0ibG9naW4tY3JlZGVudGlhbHMiPjxoND5BY2NlcHRlZCB1c2VybmFtZXMgYXJlOjwvaDQ+c3RhbmRhcmRfdXNlcjxicj5sb2NrZWRfb3V0X3VzZXI8YnI+cHJvYmxlbV91c2VyPGJyPnBlcmZvcm1hbmNlX2dsaXRjaF91c2VyPGJyPmVycm9yX3VzZXI8YnI+dmlzdWFsX3VzZXI8YnI+PC9kaXY+PGRpdiBjbGFzcz0ibG9naW5fcGFzc3dvcmQiIGRhdGEtdGVzdD0ibG9naW4tcGFzc3dvcmQiPjxoND5QYXNzd29yZCBmb3IgYWxsIHVzZXJzOjwvaDQ+c2VjcmV0X3NhdWNlPC9kaXY+PC9kaXY+PC9kaXY+PC9kaXY+PC9kaXY+PC9kaXY+PHNjcmlwdD4hZnVuY3Rpb24oZSl7ZnVuY3Rpb24gcihyKXtmb3IodmFyIG4scCxsPXJbMF0sYT1yWzFdLGY9clsyXSxjPTAscz1bXTtjPGwubGVuZ3RoO2MrKylwPWxbY10sT2JqZWN0LnByb3RvdHlwZS5oYXNPd25Qcm9wZXJ0eS5jYWxsKG8scCkmJm9bcF0mJnMucHVzaChvW3BdWzBdKSxvW3BdPTA7Zm9yKG4gaW4gYSlPYmplY3QucHJvdG90eXBlLmhhc093blByb3BlcnR5LmNhbGwoYSxuKSYmKGVbbl09YVtuXSk7Zm9yKGkmJmkocik7cy5sZW5ndGg7KXMuc2hpZnQoKSgpO3JldHVybiB1LnB1c2guYXBwbHkodSxmfHxbXSksdCgpfWZ1bmN0aW9uIHQoKXtmb3IodmFyIGUscj0wO3I8dS5sZW5ndGg7cisrKXtmb3IodmFyIHQ9dVtyXSxuPSEwLGw9MTtsPHQubGVuZ3RoO2wrKyl7dmFyIGE9dFtsXTswIT09b1thXSYmKG49ITEpfW4mJih1LnNwbGljZShyLS0sMSksZT1wKHAucz10WzBdKSl9cmV0dXJuIGV9dmFyIG49e30sbz17MTowfSx1PVtdO2Z1bmN0aW9uIHAocil7aWYobltyXSlyZXR1cm4gbltyXS5leHBvcnRzO3ZhciB0PW5bcl09e2k6cixsOiExLGV4cG9ydHM6e319O3JldHVybiBlW3JdLmNhbGwodC5leHBvcnRzLHQsdC5leHBvcnRzLHApLHQubD0hMCx0LmV4cG9ydHN9cC5tPWUscC5jPW4scC5kPWZ1bmN0aW9uKGUscix0KXtwLm8oZSxyKXx8T2JqZWN0LmRlZmluZVByb3BlcnR5KGUscix7ZW51bWVyYWJsZTohMCxnZXQ6dH0pfSxwLnI9ZnVuY3Rpb24oZSl7InVuZGVmaW5lZCIhPXR5cGVvZiBTeW1ib2wmJlN5bWJvbC50b1N0cmluZ1RhZyYmT2JqZWN0LmRlZmluZVByb3BlcnR5KGUsU3ltYm9sLnRvU3RyaW5nVGFnLHt2YWx1ZToiTW9kdWxlIn0pLE9iamVjdC5kZWZpbmVQcm9wZXJ0eShlLCJfX2VzTW9kdWxlIix7dmFsdWU6ITB9KX0scC50PWZ1bmN0aW9uKGUscil7aWYoMSZyJiYoZT1wKGUpKSw4JnIpcmV0dXJuIGU7aWYoNCZyJiYib2JqZWN0Ij09dHlwZW9mIGUmJmUmJmUuX19lc01vZHVsZSlyZXR1cm4gZTt2YXIgdD1PYmplY3QuY3JlYXRlKG51bGwpO2lmKHAucih0KSxPYmplY3QuZGVmaW5lUHJvcGVydHkodCwiZGVmYXVsdCIse2VudW1lcmFibGU6ITAsdmFsdWU6ZX0pLDImciYmInN0cmluZyIhPXR5cGVvZiBlKWZvcih2YXIgbiBpbiBlKXAuZCh0LG4sZnVuY3Rpb24ocil7cmV0dXJuIGVbcl19LmJpbmQobnVsbCxuKSk7cmV0dXJuIHR9LHAubj1mdW5jdGlvbihlKXt2YXIgcj1lJiZlLl9fZXNNb2R1bGU/ZnVuY3Rpb24oKXtyZXR1cm4gZS5kZWZhdWx0fTpmdW5jdGlvbigpe3JldHVybiBlfTtyZXR1cm4gcC5kKHIsImEiLHIpLHJ9LHAubz1mdW5jdGlvbihlLHIpe3JldHVybiBPYmplY3QucHJvdG90eXBlLmhhc093blByb3BlcnR5LmNhbGwoZSxyKX0scC5wPSIvIjt2YXIgbD10aGlzWyJ3ZWJwYWNrSnNvbnBzYW1wbGUtYXBwLXdlYiJdPXRoaXNbIndlYnBhY2tKc29ucHNhbXBsZS1hcHAtd2ViIl18fFtdLGE9bC5wdXNoLmJpbmQobCk7bC5wdXNoPXIsbD1sLnNsaWNlKCk7Zm9yKHZhciBmPTA7ZjxsLmxlbmd0aDtmKyspcihsW2ZdKTt2YXIgaT1hO3QoKX0oW10pPC9zY3JpcHQ+PHNjcmlwdCBzcmM9Ii9zdGF0aWMvanMvMi44NGE1Y2JmMy5jaHVuay5qcyI+PC9zY3JpcHQ+PHNjcmlwdCBzcmM9Ii9zdGF0aWMvanMvbWFpbi4wMThkMmQxZS5jaHVuay5qcyI+PC9zY3JpcHQ+PC9ib2R5PjwvaHRtbD4="
+                        },
+                        {
+                          "name": "URL после авторизации",
+                          "contentType": "text/plain",
+                          "body": "aHR0cHM6Ly93d3cuc2F1Y2VkZW1vLmNvbS9pbnZlbnRvcnkuaHRtbA=="
+                        },
+                        {
+                          "name": "Список продуктов",
+                          "contentType": "text/plain",
+                          "body": "WwogICJTYXVjZSBMYWJzIEJhY2twYWNrIiwKICAiU2F1Y2UgTGFicyBCaWtlIExpZ2h0IiwKICAiU2F1Y2UgTGFicyBCb2x0IFQtU2hpcnQiLAogICJTYXVjZSBMYWJzIEZsZWVjZSBKYWNrZXQiLAogICJTYXVjZSBMYWJzIE9uZXNpZSIsCiAgIlRlc3QuYWxsVGhlVGhpbmdzKCkgVC1TaGlydCAoUmVkKSIKXQ=="
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "96729fa6af191ee1faed-e0dd29a3fadd2ae1fb40",
+              "file": "allure-example.spec.ts",
+              "line": 9,
+              "column": 9
+            },
+            {
+              "title": "Тест с различными статусами шагов",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "feature",
+                      "description": "Авторизация"
+                    },
+                    {
+                      "type": "severity",
+                      "description": "normal"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "Chrome",
+                  "projectName": "Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 965,
+                      "error": {
+                        "message": "Error: Демонстрационная ошибка для Allure",
+                        "stack": "Error: Демонстрационная ошибка для Allure\n    at /Users/yevheniivakerin/Downloads/Coding/Pets/basic/ui-test-framework-playwright-typescript/src/tests/allure-example.spec.ts:68:27\n    at /Users/yevheniivakerin/Downloads/Coding/Pets/basic/ui-test-framework-playwright-typescript/src/tests/allure-example.spec.ts:66:24",
+                        "location": {
+                          "file": "/Users/yevheniivakerin/Downloads/Coding/Pets/basic/ui-test-framework-playwright-typescript/src/tests/allure-example.spec.ts",
+                          "column": 27,
+                          "line": 68
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 66 |\u001b[39m             \u001b[36mawait\u001b[39m test\u001b[33m.\u001b[39mstep(\u001b[32m'Проверка с возможной ошибкой'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\n \u001b[90m 67 |\u001b[39m                 \u001b[36mif\u001b[39m (\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 68 |\u001b[39m                     \u001b[36mthrow\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mError\u001b[39m(\u001b[32m'Демонстрационная ошибка для Allure'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 69 |\u001b[39m                 }\n \u001b[90m 70 |\u001b[39m             })\u001b[33m;\u001b[39m\n \u001b[90m 71 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/Users/yevheniivakerin/Downloads/Coding/Pets/basic/ui-test-framework-playwright-typescript/src/tests/allure-example.spec.ts",
+                            "column": 27,
+                            "line": 68
+                          },
+                          "message": "Error: Демонстрационная ошибка для Allure\n\n\u001b[0m \u001b[90m 66 |\u001b[39m             \u001b[36mawait\u001b[39m test\u001b[33m.\u001b[39mstep(\u001b[32m'Проверка с возможной ошибкой'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\n \u001b[90m 67 |\u001b[39m                 \u001b[36mif\u001b[39m (\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 68 |\u001b[39m                     \u001b[36mthrow\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mError\u001b[39m(\u001b[32m'Демонстрационная ошибка для Allure'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 69 |\u001b[39m                 }\n \u001b[90m 70 |\u001b[39m             })\u001b[33m;\u001b[39m\n \u001b[90m 71 |\u001b[39m\u001b[0m\n\u001b[2m    at /Users/yevheniivakerin/Downloads/Coding/Pets/basic/ui-test-framework-playwright-typescript/src/tests/allure-example.spec.ts:68:27\u001b[22m\n\u001b[2m    at /Users/yevheniivakerin/Downloads/Coding/Pets/basic/ui-test-framework-playwright-typescript/src/tests/allure-example.spec.ts:66:24\u001b[22m"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Открываем страницу авторизации",
+                          "duration": 590
+                        },
+                        {
+                          "title": "Проверка с возможной ошибкой",
+                          "duration": 0,
+                          "error": {
+                            "message": "Error: Демонстрационная ошибка для Allure",
+                            "stack": "Error: Демонстрационная ошибка для Allure\n    at /Users/yevheniivakerin/Downloads/Coding/Pets/basic/ui-test-framework-playwright-typescript/src/tests/allure-example.spec.ts:68:27\n    at /Users/yevheniivakerin/Downloads/Coding/Pets/basic/ui-test-framework-playwright-typescript/src/tests/allure-example.spec.ts:66:24",
+                            "location": {
+                              "file": "/Users/yevheniivakerin/Downloads/Coding/Pets/basic/ui-test-framework-playwright-typescript/src/tests/allure-example.spec.ts",
+                              "column": 27,
+                              "line": 68
+                            },
+                            "snippet": "\u001b[0m \u001b[90m 66 |\u001b[39m             \u001b[36mawait\u001b[39m test\u001b[33m.\u001b[39mstep(\u001b[32m'Проверка с возможной ошибкой'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m () \u001b[33m=>\u001b[39m {\n \u001b[90m 67 |\u001b[39m                 \u001b[36mif\u001b[39m (\u001b[33mMath\u001b[39m\u001b[33m.\u001b[39mrandom() \u001b[33m>\u001b[39m \u001b[35m0.5\u001b[39m) {\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 68 |\u001b[39m                     \u001b[36mthrow\u001b[39m \u001b[36mnew\u001b[39m \u001b[33mError\u001b[39m(\u001b[32m'Демонстрационная ошибка для Allure'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                           \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 69 |\u001b[39m                 }\n \u001b[90m 70 |\u001b[39m             })\u001b[33m;\u001b[39m\n \u001b[90m 71 |\u001b[39m\u001b[0m"
+                          }
+                        }
+                      ],
+                      "startTime": "2025-03-23T09:04:16.380Z",
+                      "attachments": [
+                        {
+                          "name": "Ошибка в тесте",
+                          "contentType": "text/plain",
+                          "body": "RXJyb3I6INCU0LXQvNC+0L3RgdGC0YDQsNGG0LjQvtC90L3QsNGPINC+0YjQuNCx0LrQsCDQtNC70Y8gQWxsdXJl"
+                        },
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/Users/yevheniivakerin/Downloads/Coding/Pets/basic/ui-test-framework-playwright-typescript/test-results/allure-example-Демонстраци-1ffbd--различными-статусами-шагов-Chrome/test-failed-1.png"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/Users/yevheniivakerin/Downloads/Coding/Pets/basic/ui-test-framework-playwright-typescript/src/tests/allure-example.spec.ts",
+                        "column": 27,
+                        "line": 68
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "96729fa6af191ee1faed-b95e1cf29d1c8f6c05d7",
+              "file": "allure-example.spec.ts",
+              "line": 52,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "login.spec.ts",
+      "file": "login.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Авторизация в SauceDemo",
+          "file": "login.spec.ts",
+          "line": 5,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Успешная авторизация с правильными учетными данными",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [
+                    {
+                      "type": "tag",
+                      "description": "smoke"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "Chrome",
+                  "projectName": "Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 2148,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[2025-03-23T09:04:14.693Z] [INFO] Переход на страницу: https://www.saucedemo.com/ \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:15.692Z] [INFO] Заполнение поля #user-name значением: standard_user \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:15.732Z] [INFO] Заполнение поля #password значением: secret_sauce \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:15.758Z] [INFO] Клик по элементу: #login-button \n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Переход на страницу: https://www.saucedemo.com/",
+                          "duration": 951
+                        },
+                        {
+                          "title": "Заполнение поля #user-name",
+                          "duration": 39,
+                          "steps": [
+                            {
+                              "title": "Ожидание элемента: #user-name",
+                              "duration": 27
+                            }
+                          ]
+                        },
+                        {
+                          "title": "Заполнение поля #password",
+                          "duration": 26,
+                          "steps": [
+                            {
+                              "title": "Ожидание элемента: #password",
+                              "duration": 15
+                            }
+                          ]
+                        },
+                        {
+                          "title": "Клик по элементу: #login-button",
+                          "duration": 177,
+                          "steps": [
+                            {
+                              "title": "Ожидание элемента: #login-button",
+                              "duration": 56
+                            }
+                          ]
+                        }
+                      ],
+                      "startTime": "2025-03-23T09:04:12.747Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "41d3fd2474a19feb00a1-ff1fcc591a81c327b665",
+              "file": "login.spec.ts",
+              "line": 6,
+              "column": 7
+            },
+            {
+              "title": "Неуспешная авторизация с заблокированным пользователем",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Chrome",
+                  "projectName": "Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 1,
+                      "status": "passed",
+                      "duration": 1075,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[2025-03-23T09:04:16.535Z] [INFO] Переход на страницу: https://www.saucedemo.com/ \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:17.143Z] [INFO] Заполнение поля #user-name значением: locked_out_user \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:17.198Z] [INFO] Заполнение поля #password значением: secret_sauce \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:17.256Z] [INFO] Клик по элементу: #login-button \n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Переход на страницу: https://www.saucedemo.com/",
+                          "duration": 607
+                        },
+                        {
+                          "title": "Заполнение поля #user-name",
+                          "duration": 54,
+                          "steps": [
+                            {
+                              "title": "Ожидание элемента: #user-name",
+                              "duration": 37
+                            }
+                          ]
+                        },
+                        {
+                          "title": "Заполнение поля #password",
+                          "duration": 57,
+                          "steps": [
+                            {
+                              "title": "Ожидание элемента: #password",
+                              "duration": 5
+                            }
+                          ]
+                        },
+                        {
+                          "title": "Клик по элементу: #login-button",
+                          "duration": 46,
+                          "steps": [
+                            {
+                              "title": "Ожидание элемента: #login-button",
+                              "duration": 11
+                            }
+                          ]
+                        },
+                        {
+                          "title": "Проверка видимости элемента: .error-message-container",
+                          "duration": 11
+                        },
+                        {
+                          "title": "Получение текста элемента: .error-message-container",
+                          "duration": 7,
+                          "steps": [
+                            {
+                              "title": "Ожидание элемента: .error-message-container",
+                              "duration": 4
+                            }
+                          ]
+                        }
+                      ],
+                      "startTime": "2025-03-23T09:04:16.298Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "41d3fd2474a19feb00a1-def45544d57cb4626260",
+              "file": "login.spec.ts",
+              "line": 17,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "products.spec.ts",
+      "file": "products.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Тесты для работы с продуктами",
+          "file": "products.spec.ts",
+          "line": 7,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Добавление продукта в корзину",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Chrome",
+                  "projectName": "Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1881,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[2025-03-23T09:04:14.731Z] [INFO] Переход на страницу: https://www.saucedemo.com/ \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:15.396Z] [INFO] Заполнение поля #user-name значением: standard_user \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:15.456Z] [INFO] Заполнение поля #password значением: secret_sauce \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:15.552Z] [INFO] Клик по элементу: #login-button \n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-03-23T09:04:12.750Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "000c94276132c4f97581-6909baafb6be3d18b985",
+              "file": "products.spec.ts",
+              "line": 17,
+              "column": 9
+            },
+            {
+              "title": "Добавление и удаление продукта из корзины",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Chrome",
+                  "projectName": "Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1174,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[2025-03-23T09:04:16.405Z] [INFO] Переход на страницу: https://www.saucedemo.com/ \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:16.992Z] [INFO] Заполнение поля #user-name значением: standard_user \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:17.034Z] [INFO] Заполнение поля #password значением: secret_sauce \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:17.081Z] [INFO] Клик по элементу: #login-button \n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-03-23T09:04:16.121Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "000c94276132c4f97581-525f5d923e14621de139",
+              "file": "products.spec.ts",
+              "line": 30,
+              "column": 9
+            },
+            {
+              "title": "Добавление нескольких продуктов в корзину и проверка в корзине",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Chrome",
+                  "projectName": "Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1129,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[2025-03-23T09:04:17.526Z] [INFO] Переход на страницу: https://www.saucedemo.com/ \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:18.107Z] [INFO] Заполнение поля #user-name значением: standard_user \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:18.129Z] [INFO] Заполнение поля #password значением: secret_sauce \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:18.136Z] [INFO] Клик по элементу: #login-button \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:18.312Z] [INFO] Клик по элементу: .shopping_cart_link \n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Клик по элементу: .shopping_cart_link",
+                          "duration": 73,
+                          "steps": [
+                            {
+                              "title": "Ожидание элемента: .shopping_cart_link",
+                              "duration": 2
+                            }
+                          ]
+                        }
+                      ],
+                      "startTime": "2025-03-23T09:04:17.326Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "000c94276132c4f97581-f61da14da43cd55e6d77",
+              "file": "products.spec.ts",
+              "line": 42,
+              "column": 9
+            },
+            {
+              "title": "Сортировка продуктов",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "Chrome",
+                  "projectName": "Chrome",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 2,
+                      "status": "passed",
+                      "duration": 1862,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[2025-03-23T09:04:18.633Z] [INFO] Переход на страницу: https://www.saucedemo.com/ \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:20.029Z] [INFO] Заполнение поля #user-name значением: standard_user \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:20.057Z] [INFO] Заполнение поля #password значением: secret_sauce \n"
+                        },
+                        {
+                          "text": "[2025-03-23T09:04:20.075Z] [INFO] Клик по элементу: #login-button \n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-03-23T09:04:18.458Z",
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "000c94276132c4f97581-0554ee3c6721c6f44cb2",
+              "file": "products.spec.ts",
+              "line": 71,
+              "column": 9
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-03-23T09:04:12.016Z",
+    "duration": 8614.798,
+    "expected": 7,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}
