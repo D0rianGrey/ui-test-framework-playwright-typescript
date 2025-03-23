@@ -4,11 +4,12 @@ import { config } from '../config/environment';
 
 test.describe('Авторизация в SauceDemo', () => {
   test('Успешная авторизация с правильными учетными данными', async ({ page }) => {
+    test.info().annotations.push({ type: 'tag', description: 'smoke' });
     const loginPage = new LoginPage(page);
     const { username, password } = config.credentials.standardUser;
-    
+
     await loginPage.login(username, password);
-    
+
     // Проверяем, что после успешного входа мы перешли на страницу продуктов
     await expect(page).toHaveURL(/inventory.html/);
   });
@@ -16,9 +17,9 @@ test.describe('Авторизация в SauceDemo', () => {
   test('Неуспешная авторизация с заблокированным пользователем', async ({ page }) => {
     const loginPage = new LoginPage(page);
     const { username, password } = config.credentials.lockedUser;
-    
+
     await loginPage.login(username, password);
-    
+
     // Проверяем, что отображается сообщение об ошибке
     expect(await loginPage.isErrorDisplayed()).toBeTruthy();
     const errorText = await loginPage.getErrorText();
