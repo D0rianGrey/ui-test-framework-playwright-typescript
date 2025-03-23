@@ -1,0 +1,4 @@
+[2025-03-23T18:01:36.327Z] [INFO] Переход на страницу: https://www.saucedemo.com/ 
+[2025-03-23T18:01:36.506Z] [INFO] Заполнение поля #user-name значением: locked_out_user 
+[2025-03-23T18:01:36.570Z] [INFO] Заполнение поля #password значением: secret_sauce 
+[2025-03-23T18:01:36.591Z] [INFO] Клик по элементу: #login-button 
