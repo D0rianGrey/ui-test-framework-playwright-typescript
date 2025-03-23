@@ -1,0 +1,13 @@
+services:
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./results:/app/test-results
+      - ./allure-results:/app/allure-results
+      - ./allure-report:/app/allure-report
+      - ./playwright-report:/app/playwright-report
+    environment:
+      - TEST_ENV=local
+    command: sh -c "npx playwright test --config=playwright.docker.config.ts && npm run allure:generate"

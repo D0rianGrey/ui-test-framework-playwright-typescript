@@ -1,5 +1,4 @@
 import { PlaywrightTestConfig } from '@playwright/test';
-import path from 'path';
 
 const config: PlaywrightTestConfig = {
     testDir: './src/tests',
@@ -11,14 +10,14 @@ const config: PlaywrightTestConfig = {
     ],
     use: {
         browserName: 'chromium',
-        headless: false,
+        headless: true, // Всегда headless в Docker
         screenshot: 'only-on-failure',
         trace: 'on-first-retry',
         video: 'on-first-retry'
     },
     projects: [
         {
-            name: 'chromium',
+            name: 'Chrome',
             use: { browserName: 'chromium' }
         }
     ]

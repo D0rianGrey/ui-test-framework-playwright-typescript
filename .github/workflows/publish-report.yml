@@ -1,0 +1,103 @@
+name: Publish Allure Report
+
+on:
+  workflow_run:
+    workflows: ["Playwright Tests"]
+    types:
+      - completed
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  publish:
+    name: Publish Allure Report
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event.workflow_run.conclusion == 'failure' }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Скачивание артефакта
+      - name: Download Allure Report artifact
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: ${{ github.event.workflow_run.workflow_id }}
+          run_id: ${{ github.event.workflow_run.id }}
+          name: allure-report-local-chromium
+          path: downloaded-report
+        continue-on-error: true
+
+      # Отладка для проверки структуры
+      - name: Debug downloaded artifact
+        run: |
+          echo "Содержимое директории с загруженным артефактом:"
+          ls -la downloaded-report || echo "Директория не существует или пуста"
+          find downloaded-report -type f | sort || echo "Нет файлов"
+        continue-on-error: true
+
+      # Упрощенный шаг для подготовки отчета
+      - name: Prepare Allure Report
+        run: |
+          mkdir -p allure-report
+          
+          # Проверяем, есть ли загруженный артефакт
+          if [ -d "downloaded-report" ] && [ "$(ls -A downloaded-report 2>/dev/null)" ]; then
+            echo "Копирование отчета из downloaded-report"
+            cp -r downloaded-report/* allure-report/ || true
+          else
+            echo "Директория с загруженным отчетом пуста или не существует"
+            
+            # Создаем простой отчет вместо heredoc
+            echo '<!DOCTYPE html>' > allure-report/index.html
+            echo '<html>' >> allure-report/index.html
+            echo '<head>' >> allure-report/index.html
+            echo '  <meta charset="UTF-8">' >> allure-report/index.html
+            echo '  <title>Test Report</title>' >> allure-report/index.html
+            echo '  <style>' >> allure-report/index.html
+            echo '    body { font-family: Arial, sans-serif; margin: 50px; background-color: #f5f5f5; }' >> allure-report/index.html
+            echo '    .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }' >> allure-report/index.html
+            echo '    h1 { color: #333; }' >> allure-report/index.html
+            echo '  </style>' >> allure-report/index.html
+            echo '</head>' >> allure-report/index.html
+            echo '<body>' >> allure-report/index.html
+            echo '  <div class="container">' >> allure-report/index.html
+            echo '    <h1>Test Report</h1>' >> allure-report/index.html
+            echo '    <p>Не удалось загрузить отчет Allure. Пожалуйста, проверьте настройку workflow.</p>' >> allure-report/index.html
+            echo "    <p>Generated on: $(date)</p>" >> allure-report/index.html
+            echo '  </div>' >> allure-report/index.html
+            echo '</body>' >> allure-report/index.html
+            echo '</html>' >> allure-report/index.html
+          fi
+        continue-on-error: true
+
+      # Проверка созданного отчета
+      - name: Check report
+        run: |
+          echo "Содержимое директории allure-report:"
+          ls -la allure-report || echo "Директория не существует"
+        continue-on-error: true
+
+      # Публикация на GitHub Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './allure-report'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        
+      # Вывод URL
+      - name: Display deployment URL
+        run: |
+          echo "::notice title=GitHub Pages URL::Report published at https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/"

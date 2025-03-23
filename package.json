@@ -7,12 +7,19 @@
     "test": "playwright test",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
+    "test:chrome": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
+    "test:env": "TEST_ENV=dev playwright test",
     "report": "playwright show-report",
     "allure:generate": "allure generate allure-results -o allure-report --clean",
     "allure:open": "allure open allure-report",
     "allure:report": "npm run allure:generate && npm run allure:open",
     "test:allure": "npx playwright test && npm run allure:report",
-    "clean:allure": "rimraf allure-results allure-report"
+    "clean:allure": "rimraf allure-results allure-report",
+    "docker:test": "docker-compose up --build",
+    "docker:report": "npx allure open allure-report",
+    "docker:full": "npm run docker:test && npm run docker:report"
   },
   "repository": {
     "type": "git",

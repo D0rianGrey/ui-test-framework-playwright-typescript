@@ -1,27 +1,24 @@
 import { PlaywrightTestConfig } from '@playwright/test';
-import path from 'path';
 
 const config: PlaywrightTestConfig = {
     testDir: './src/tests',
     timeout: 30000,
     reporter: [
         ['html'],
-        ['list'],
         ['allure-playwright']
     ],
     use: {
         browserName: 'chromium',
-        headless: false,
-        screenshot: 'only-on-failure',
-        trace: 'on-first-retry',
-        video: 'on-first-retry'
+        headless: true,
     },
     projects: [
         {
             name: 'chromium',
             use: { browserName: 'chromium' }
         }
-    ]
+    ],
+    // Не останавливаться при ошибках
+    maxFailures: 0
 };
 
 export default config;
