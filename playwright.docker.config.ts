@@ -1,3 +1,4 @@
+// playwright.docker.config.ts - для запуска в обычном Docker
 import { PlaywrightTestConfig } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {

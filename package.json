@@ -19,7 +19,15 @@
     "clean:allure": "rimraf allure-results allure-report",
     "docker:test": "docker-compose up --build",
     "docker:report": "npx allure open allure-report",
-    "docker:full": "npm run docker:test && npm run docker:report"
+    "docker:full": "npm run docker:test && npm run docker:report",
+    "parallel:local": "npx playwright test --workers=4",
+    "minikube:start": "minikube start",
+    "minikube:stop": "minikube stop",
+    "minikube:status": "minikube status",
+    "test:docker": "playwright test --config=playwright.docker.config.ts",
+    "test:k8s": "playwright test --config=playwright.k8s.config.ts",
+    "docker:run": "docker-compose up --build",
+    "k8s:run": "./k8s/run-tests.sh"
   },
   "repository": {
     "type": "git",

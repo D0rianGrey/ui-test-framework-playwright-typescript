@@ -1,0 +1,36 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: ui-test-cronjob
+spec:
+  schedule: "0 0 * * *" # Запуск ежедневно в полночь (UTC)
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: test-runner
+              image: ${YOUR_DOCKER_REGISTRY}/ui-test-framework:latest
+              args: ["test"]
+              envFrom:
+                - configMapRef:
+                    name: test-framework-config
+              resources:
+                requests:
+                  memory: "1Gi"
+                  cpu: "500m"
+                limits:
+                  memory: "2Gi"
+                  cpu: "1000m"
+              volumeMounts:
+                - name: results-volume
+                  mountPath: /app/allure-results
+                - name: reports-volume
+                  mountPath: /app/allure-report
+          volumes:
+            - name: results-volume
+              emptyDir: {}
+            - name: reports-volume
+              emptyDir: {}
+          restartPolicy: Never

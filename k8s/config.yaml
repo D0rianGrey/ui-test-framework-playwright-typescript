@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-framework-config
+data:
+  TEST_ENV: "local" # можно изменить на dev, staging, prod
+  HEADLESS: "true"
+  DEBUG_LOGS: "false"

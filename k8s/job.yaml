@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ui-test-job
+spec:
+  template:
+    spec:
+      containers:
+        - name: test-runner
+          image: ui-test-framework:latest
+          imagePullPolicy: Never
+          command: ["/usr/local/bin/xvfb-run-safe"]
+          args:
+            ["npx", "playwright", "test", "--config=playwright.k8s.config.ts"]
+          env:
+            - name: DEBUG
+              value: "pw:api"
+            - name: TEST_ENV
+              value: "local"
+            - name: DISPLAY
+              value: ":99"
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "500m"
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
+          volumeMounts:
+            - name: results-volume
+              mountPath: /app/allure-results
+            - name: reports-volume
+              mountPath: /app/allure-report
+      volumes:
+        - name: results-volume
+          emptyDir: {}
+        - name: reports-volume
+          emptyDir: {}
+      restartPolicy: Never
+  backoffLimit: 3
