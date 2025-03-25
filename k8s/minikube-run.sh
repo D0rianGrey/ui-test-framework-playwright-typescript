@@ -81,25 +81,25 @@ spec:
           ls -la
           echo "Версия Node.js: \$(node -v)"
           echo "Версия npm: \$(npm -v)"
-          echo "Версия npx: \$(npx --version)"
+          echo "Версия npx: \$(npx --version || echo 'npx не найден')"
           echo "Поиск файла конфигурации:"
           find / -name "playwright.k8s.config.ts" 2>/dev/null || echo "Файл конфигурации не найден"
           echo "PATH: \$PATH"
           echo "=============================="
           
-          if [ -f "./playwright.k8s.config.ts" ]; then
-            echo "Запуск тестов с локальным конфигом..."
-            /usr/local/bin/xvfb-run-safe npx playwright test --config=./playwright.k8s.config.ts
+          echo "=== Запуск тестов ==="
+          npm test -- --config=playwright.k8s.config.ts
+          
+          echo "=== Проверка папки с результатами тестов ==="
+          ls -la allure-results || echo "Папка allure-results не найдена"
+          
+          echo "=== Генерация отчета Allure ==="
+          if [ -d "allure-results" ] && [ "\$(ls -A allure-results 2>/dev/null)" ]; then
+            allure generate allure-results -o allure-report --clean
+            echo "Отчет Allure сгенерирован:"
+            ls -la allure-report || echo "Папка allure-report не найдена"
           else
-            echo "Поиск конфига в других местах..."
-            CONFIG_PATH=\$(find / -name "playwright.k8s.config.ts" 2>/dev/null | head -1)
-            if [ -n "\$CONFIG_PATH" ]; then
-              echo "Найден конфиг: \$CONFIG_PATH"
-              /usr/local/bin/xvfb-run-safe npx playwright test --config="\$CONFIG_PATH"
-            else
-              echo "Конфиг не найден, пробуем запуск без указания конфига..."
-              /usr/local/bin/xvfb-run-safe npx playwright test
-            fi
+            echo "Папка allure-results пуста или не существует"
           fi
         env:
         - name: DEBUG
@@ -166,4 +166,60 @@ JOB_STATUS=$(kubectl get job ui-test-job -o jsonpath='{.status.conditions[?(@.ty
 if [ "$JOB_STATUS" == "True" ]; then
     log "Job успешно завершен!"
 else
-    warn "Job не был успешно завершен. Проверьте наличие
+    warn "Job не был успешно завершен. Проверьте наличие ошибок:"
+    kubectl describe job ui-test-job
+    kubectl describe pod $POD_NAME
+fi
+
+# Получение имени Pod (снова, на случай если раньше его не было)
+POD_NAME=$(kubectl get pods -l job-name=ui-test-job -o jsonpath='{.items[0].metadata.name}' 2>/dev/null)
+
+# Проверка наличия Pod
+if [ -z "$POD_NAME" ]; then
+    error "Pod не найден! Не удается получить отчет."
+    exit 1
+fi
+
+# Создание директории для отчета, если она не существует
+mkdir -p allure-report-k8s
+
+# Копирование отчета Allure из Pod
+log "Копирование отчета Allure из Pod..."
+kubectl cp "$POD_NAME:/app/allure-report" "./allure-report-k8s" || true
+if [ $? -ne 0 ]; then
+    warn "Не удалось скопировать отчет Allure. Проверьте существует ли он в контейнере."
+    # Дополнительная диагностика
+    log "Проверка содержимого pod'а..."
+    kubectl exec -it $POD_NAME -- ls -la /app || true
+    kubectl exec -it $POD_NAME -- ls -la /app/allure-results || true
+    kubectl exec -it $POD_NAME -- ls -la /app/allure-report || true
+fi
+
+# Проверка, что отчет скопирован успешно
+if [ -d "./allure-report-k8s" ] && [ "$(ls -A ./allure-report-k8s 2>/dev/null)" ]; then
+    log "Отчет Allure успешно скопирован в ./allure-report-k8s"
+else
+    warn "Директория отчета пуста. Попытка копирования через явный tar-метод..."
+    # Альтернативный способ копирования через tar
+    kubectl exec -it $POD_NAME -- bash -c "tar -cf - /app/allure-report" | tar -xf - -C ./allure-report-k8s --strip-components=2 || true
+    
+    # Если и это не помогло, пробуем скопировать результаты тестов и сгенерировать отчет локально
+    if [ ! "$(ls -A ./allure-report-k8s 2>/dev/null)" ]; then
+        log "Попытка локальной генерации отчета Allure..."
+        mkdir -p temp-allure-results
+        kubectl cp "$POD_NAME:/app/allure-results" "./temp-allure-results" || true
+        
+        if [ -d "./temp-allure-results" ] && [ "$(ls -A ./temp-allure-results 2>/dev/null)" ]; then
+            log "Генерация отчета из скопированных результатов..."
+            allure generate ./temp-allure-results -o ./allure-report-k8s --clean || true
+            rm -rf ./temp-allure-results
+        fi
+    fi
+fi
+
+log "=== Сводка ==="
+log "Тесты выполнены в окружении: ${TEST_ENV}"
+log "Pod: $POD_NAME"
+log "Отчет Allure: ./allure-report-k8s"
+log "Для просмотра логов: kubectl logs $POD_NAME"
+log "Для удаления Job: kubectl delete job ui-test-job"

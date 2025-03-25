@@ -18,25 +18,25 @@ spec:
           ls -la
           echo "Версия Node.js: $(node -v)"
           echo "Версия npm: $(npm -v)"
-          echo "Версия npx: $(npx --version)"
+          echo "Версия npx: $(npx --version || echo 'npx не найден')"
           echo "Поиск файла конфигурации:"
           find / -name "playwright.k8s.config.ts" 2>/dev/null || echo "Файл конфигурации не найден"
           echo "PATH: $PATH"
           echo "=============================="
           
-          if [ -f "./playwright.k8s.config.ts" ]; then
-            echo "Запуск тестов с локальным конфигом..."
-            /usr/local/bin/xvfb-run-safe npx playwright test --config=./playwright.k8s.config.ts
+          echo "=== Запуск тестов ==="
+          npm test -- --config=playwright.k8s.config.ts
+          
+          echo "=== Проверка папки с результатами тестов ==="
+          ls -la allure-results || echo "Папка allure-results не найдена"
+          
+          echo "=== Генерация отчета Allure ==="
+          if [ -d "allure-results" ] && [ "$(ls -A allure-results 2>/dev/null)" ]; then
+            allure generate allure-results -o allure-report --clean
+            echo "Отчет Allure сгенерирован:"
+            ls -la allure-report || echo "Папка allure-report не найдена"
           else
-            echo "Поиск конфига в других местах..."
-            CONFIG_PATH=$(find / -name "playwright.k8s.config.ts" 2>/dev/null | head -1)
-            if [ -n "$CONFIG_PATH" ]; then
-              echo "Найден конфиг: $CONFIG_PATH"
-              /usr/local/bin/xvfb-run-safe npx playwright test --config="$CONFIG_PATH"
-            else
-              echo "Конфиг не найден, пробуем запуск без указания конфига..."
-              /usr/local/bin/xvfb-run-safe npx playwright test
-            fi
+            echo "Папка allure-results пуста или не существует"
           fi
         env:
         - name: DEBUG
