@@ -1,0 +1,66 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ui-test-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: test-runner
+        image: ui-test-framework:latest
+        imagePullPolicy: Never
+        command: ["/bin/bash", "-c"]
+        args: 
+        - |
+          echo "=== Отладочная информация ==="
+          echo "Рабочая директория: $(pwd)"
+          echo "Список файлов в директории:"
+          ls -la
+          echo "Версия Node.js: $(node -v)"
+          echo "Версия npm: $(npm -v)"
+          echo "Версия npx: $(npx --version)"
+          echo "Поиск файла конфигурации:"
+          find / -name "playwright.k8s.config.ts" 2>/dev/null || echo "Файл конфигурации не найден"
+          echo "PATH: $PATH"
+          echo "=============================="
+          
+          if [ -f "./playwright.k8s.config.ts" ]; then
+            echo "Запуск тестов с локальным конфигом..."
+            /usr/local/bin/xvfb-run-safe npx playwright test --config=./playwright.k8s.config.ts
+          else
+            echo "Поиск конфига в других местах..."
+            CONFIG_PATH=$(find / -name "playwright.k8s.config.ts" 2>/dev/null | head -1)
+            if [ -n "$CONFIG_PATH" ]; then
+              echo "Найден конфиг: $CONFIG_PATH"
+              /usr/local/bin/xvfb-run-safe npx playwright test --config="$CONFIG_PATH"
+            else
+              echo "Конфиг не найден, пробуем запуск без указания конфига..."
+              /usr/local/bin/xvfb-run-safe npx playwright test
+            fi
+          fi
+        env:
+        - name: DEBUG
+          value: "pw:api"
+        - name: TEST_ENV
+          value: "local"
+        - name: DISPLAY
+          value: ":99"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        volumeMounts:
+        - name: results-volume
+          mountPath: /app/allure-results
+        - name: reports-volume
+          mountPath: /app/allure-report
+      volumes:
+      - name: results-volume
+        emptyDir: {}
+      - name: reports-volume
+        emptyDir: {}
+      restartPolicy: Never
+  backoffLimit: 3

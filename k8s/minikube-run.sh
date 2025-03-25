@@ -56,23 +56,11 @@ log "Создание ConfigMap..."
 kubectl create configmap test-framework-config \
   --from-literal=TEST_ENV=${TEST_ENV} \
   --from-literal=HEADLESS=true \
-  --from-literal=DEBUG_LOGS=false \
+  --from-literal=DEBUG_LOGS=true \
   --dry-run=client -o yaml | kubectl apply -f -
 
-# Обновление Job манифеста
-log "Создание Job манифеста..."
-
-# Базовые аргументы
-TEST_ARGS=("npx" "playwright" "test" "--config=playwright.k8s.config.ts")
-
-# Если передан конкретный тест, добавляем его в аргументы
-if [ -n "$SINGLE_TEST" ]; then
-  log "Запуск только теста: $SINGLE_TEST"
-  TEST_ARGS+=("-g" "$SINGLE_TEST")
-fi
-
-# Создание временного Job манифеста
-cat > k8s/minikube-job.yaml << EOF
+# Создание временного Job манифеста с улучшенной отладкой
+cat > k8s/debug-job.yaml << EOF
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -84,8 +72,35 @@ spec:
       - name: test-runner
         image: ui-test-framework:latest
         imagePullPolicy: Never
-        command: ["/usr/local/bin/xvfb-run-safe"]
-        args: ["${TEST_ARGS[@]}"]
+        command: ["/bin/bash", "-c"]
+        args: 
+        - |
+          echo "=== Отладочная информация ==="
+          echo "Рабочая директория: \$(pwd)"
+          echo "Список файлов в директории:"
+          ls -la
+          echo "Версия Node.js: \$(node -v)"
+          echo "Версия npm: \$(npm -v)"
+          echo "Версия npx: \$(npx --version)"
+          echo "Поиск файла конфигурации:"
+          find / -name "playwright.k8s.config.ts" 2>/dev/null || echo "Файл конфигурации не найден"
+          echo "PATH: \$PATH"
+          echo "=============================="
+          
+          if [ -f "./playwright.k8s.config.ts" ]; then
+            echo "Запуск тестов с локальным конфигом..."
+            /usr/local/bin/xvfb-run-safe npx playwright test --config=./playwright.k8s.config.ts
+          else
+            echo "Поиск конфига в других местах..."
+            CONFIG_PATH=\$(find / -name "playwright.k8s.config.ts" 2>/dev/null | head -1)
+            if [ -n "\$CONFIG_PATH" ]; then
+              echo "Найден конфиг: \$CONFIG_PATH"
+              /usr/local/bin/xvfb-run-safe npx playwright test --config="\$CONFIG_PATH"
+            else
+              echo "Конфиг не найден, пробуем запуск без указания конфига..."
+              /usr/local/bin/xvfb-run-safe npx playwright test
+            fi
+          fi
         env:
         - name: DEBUG
           value: "pw:api"
@@ -119,8 +134,8 @@ log "Удаление предыдущего Job..."
 kubectl delete job ui-test-job --ignore-not-found
 
 # Запуск Job
-log "Запуск тестового Job..."
-kubectl apply -f k8s/minikube-job.yaml
+log "Запуск тестового Job с расширенной отладкой..."
+kubectl apply -f k8s/debug-job.yaml
 if [ $? -ne 0 ]; then
     error "Не удалось создать Job. Прерываем выполнение."
     exit 1
@@ -151,31 +166,4 @@ JOB_STATUS=$(kubectl get job ui-test-job -o jsonpath='{.status.conditions[?(@.ty
 if [ "$JOB_STATUS" == "True" ]; then
     log "Job успешно завершен!"
 else
-    warn "Job не был успешно завершен. Проверьте наличие ошибок."
-fi
-
-# Получение имени Pod (снова, на случай если раньше его не было)
-POD_NAME=$(kubectl get pods -l job-name=ui-test-job -o jsonpath='{.items[0].metadata.name}' 2>/dev/null)
-
-# Проверка наличия Pod
-if [ -z "$POD_NAME" ]; then
-    error "Pod не найден! Не удается получить отчет."
-    exit 1
-fi
-
-# Создание директории для отчета, если она не существует
-mkdir -p allure-report-k8s
-
-# Копирование отчета Allure из Pod
-log "Копирование отчета Allure из Pod..."
-kubectl cp $POD_NAME:/app/allure-report ./allure-report-k8s || true
-if [ $? -ne 0 ]; then
-    warn "Не удалось скопировать отчет Allure. Проверьте существует ли он в контейнере."
-fi
-
-log "=== Сводка ==="
-log "Тесты выполнены в окружении: ${TEST_ENV}"
-log "Pod: $POD_NAME"
-log "Отчет Allure: ./allure-report-k8s"
-log "Для просмотра логов: kubectl logs $POD_NAME"
-log "Для удаления Job: kubectl delete job ui-test-job"
+    warn "Job не был успешно завершен. Проверьте наличие

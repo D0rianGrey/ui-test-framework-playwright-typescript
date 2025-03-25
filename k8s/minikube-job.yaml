@@ -9,8 +9,18 @@ spec:
       - name: test-runner
         image: ui-test-framework:latest
         imagePullPolicy: Never
-        command: ["/usr/local/bin/xvfb-run-safe"]
-        args: ["npx playwright test --config=playwright.k8s.config.ts"]
+        command: ["/bin/bash", "-c"]
+        args: 
+        - |
+          echo "=== Отладочная информация ==="
+          echo "Рабочая директория: $(pwd)"
+          echo "Список файлов:"
+          ls -la
+          echo "Поиск конфигурационного файла:"
+          find . -name "playwright*.config.ts"
+          echo "=== Запуск тестов ==="
+          # Используем npm вместо npx
+          npm test -- --config=playwright.k8s.config.ts
         env:
         - name: DEBUG
           value: "pw:api"

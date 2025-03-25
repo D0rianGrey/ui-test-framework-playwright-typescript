@@ -23,6 +23,9 @@ RUN apt-get update && apt-get install -y \
     libxkbcommon0 \
     libxrandr2
 
+# Проверка версий Node.js и npm без попытки обновления
+RUN node --version && npm --version
+
 # Установка Allure
 RUN curl -o allure-commandline.zip -Ls https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/2.23.1/allure-commandline-2.23.1.zip \
     && unzip allure-commandline.zip -d /opt/ \
@@ -40,15 +43,12 @@ RUN npm ci
 # Копируем исходный код
 COPY . .
 
-# Устанавливаем Playwright браузеры без зависимостей
-RUN PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npx playwright install chromium
+# Устанавливаем Playwright браузеры
+RUN npx playwright install chromium --with-deps
 
-# Создание скрипта-обертки для запуска тестов через xvfb
-RUN echo '#!/bin/bash\nxvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" "$@"' > /usr/local/bin/xvfb-run-safe \
+# Создание скрипта-обертки для запуска тестов через xvfb с отладочной информацией
+RUN echo '#!/bin/bash\necho "Working directory: $(pwd)"\necho "Node version: $(node -v)"\necho "NPM version: $(npm -v)"\necho "Files in current directory:"\nls -la\necho "Running command: $@"\nxvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" "$@"' > /usr/local/bin/xvfb-run-safe \
     && chmod +x /usr/local/bin/xvfb-run-safe
 
 ENTRYPOINT ["/usr/local/bin/xvfb-run-safe"]
 CMD ["npm", "test"]
-
-# # Запускаем тесты по умолчанию
-# CMD ["npx", "playwright", "test"]
