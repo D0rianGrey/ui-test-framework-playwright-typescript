@@ -8,3 +8,4 @@ playwright-report/
 test-results/
 results/
 allure-report-k8s/
+allure-report.tar.gz
